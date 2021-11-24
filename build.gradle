@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // gradle
+        classpath "com.android.tools.build:gradle:7.0.3"
+
+        // kotlin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
+
+        // nav components
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5'
+
+        // dagger
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
+
+        // google services
+        classpath 'com.google.gms:google-services:4.3.10'
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
