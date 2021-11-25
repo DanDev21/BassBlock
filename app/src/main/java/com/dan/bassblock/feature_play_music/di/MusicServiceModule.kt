@@ -1,6 +1,7 @@
 package com.dan.bassblock.feature_play_music.di
 
 import android.content.Context
+import com.dan.bassblock.feature_play_music.domain.data.source.remote.SongDatabase
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
@@ -15,6 +16,10 @@ import dagger.hilt.android.scopes.ServiceScoped
 @Module
 @InstallIn(ServiceComponent::class)
 class MusicServiceModule {
+
+    @Provides
+    @ServiceScoped
+    fun provideSongDatabase() = SongDatabase()
 
     @Provides
     @ServiceScoped

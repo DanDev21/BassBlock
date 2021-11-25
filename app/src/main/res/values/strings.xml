@@ -1,3 +1,7 @@
 <resources>
+
     <string name="app_name">BassBlock</string>
+
+    <string name="notification_channel_name">Current Song</string>
+    <string name="notification_channel_description">shows the current playing song</string>
 </resources>
