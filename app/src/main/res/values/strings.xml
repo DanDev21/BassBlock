@@ -4,4 +4,8 @@
 
     <string name="notification_channel_name">Current Song</string>
     <string name="notification_channel_description">shows the current playing song</string>
+
+        song
+    <string name="title">title</string>
+    <string name="artist">artist</string>
 </resources>

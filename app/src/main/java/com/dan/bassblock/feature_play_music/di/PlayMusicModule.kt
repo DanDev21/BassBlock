@@ -5,6 +5,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.dan.bassblock.R
+import com.dan.bassblock.feature_play_music.exoplayer.MusicServiceConnection
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +27,10 @@ object PlayMusicModule {
             .error(R.drawable.img_neon_musical_note)
             .diskCacheStrategy(DiskCacheStrategy.DATA)
     )
+
+    @Provides
+    @Singleton
+    fun provideMusicServiceConnection(
+        @ApplicationContext context: Context
+    ) = MusicServiceConnection(context)
 }

@@ -3,13 +3,21 @@
     package="com.dan.bassblock">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:name=".core.BassBlock"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BassBlock">
+
+        <service android:name=".feature_play_music.service.exoplayer.MusicService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.media.browser.MediaBrowserService" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".feature_play_music.ui.activity.MainActivity"
             android:exported="true">

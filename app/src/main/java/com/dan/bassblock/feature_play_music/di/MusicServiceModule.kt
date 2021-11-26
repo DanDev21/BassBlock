@@ -15,7 +15,7 @@ import dagger.hilt.android.scopes.ServiceScoped
 
 @Module
 @InstallIn(ServiceComponent::class)
-class MusicServiceModule {
+object MusicServiceModule {
 
     @Provides
     @ServiceScoped

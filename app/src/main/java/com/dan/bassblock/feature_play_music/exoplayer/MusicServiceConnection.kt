@@ -7,6 +7,7 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dan.bassblock.feature_play_music.domain.util.Constants
 import com.dan.bassblock.feature_play_music.domain.util.Event
@@ -18,16 +19,16 @@ class MusicServiceConnection(
 ) {
 
     private val _connected = MutableLiveData<Event<Resource<Boolean>>>()
-    val connected: MutableLiveData<Event<Resource<Boolean>>> = _connected
+    val connected: LiveData<Event<Resource<Boolean>>> = _connected
 
     private val _networkError = MutableLiveData<Event<Resource<Boolean>>>()
-    val networkError: MutableLiveData<Event<Resource<Boolean>>> = _networkError
+    val networkError: LiveData<Event<Resource<Boolean>>> = _networkError
 
     private val _playbackState = MutableLiveData<PlaybackStateCompat?>()
-    val playbackState: MutableLiveData<PlaybackStateCompat?> = _playbackState
+    val playbackState: LiveData<PlaybackStateCompat?> = _playbackState
 
     private val _currentPlayingSong = MutableLiveData<MediaMetadataCompat?>()
-    val currentPlayingSong: MutableLiveData<MediaMetadataCompat?> = _currentPlayingSong
+    val currentPlayingSong: LiveData<MediaMetadataCompat?> = _currentPlayingSong
 
     lateinit var mediaController: MediaControllerCompat
 

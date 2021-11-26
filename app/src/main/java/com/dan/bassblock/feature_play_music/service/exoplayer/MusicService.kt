@@ -13,6 +13,7 @@ import com.dan.bassblock.feature_play_music.domain.data.source.remote.FirebaseMu
 import com.dan.bassblock.feature_play_music.domain.util.Constants
 import com.dan.bassblock.feature_play_music.exoplayer.MusicNotificationManager
 import com.dan.bassblock.feature_play_music.exoplayer.MusicPlaybackPreparer
+import com.dan.bassblock.feature_play_music.exoplayer.callback.MusicPlayerEventListener
 import com.dan.bassblock.feature_play_music.exoplayer.callback.MusicPlayerNotificationListener
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-private const val TAG = ""
+private const val TAG = "MediaService"
 
 @AndroidEntryPoint
 class MusicService : MediaBrowserServiceCompat() {
@@ -56,42 +57,69 @@ class MusicService : MediaBrowserServiceCompat() {
     override fun onCreate() {
         super.onCreate()
 
-        scope.launch {
-            firebaseMusic.fetchMediaData()
-        }
-        this.initSession()
-        this.initNotificationManager()
+        this.fetchData()
 
+        this.setupSession()
+        this.setupNotificationManager()
+        this.setupConnector()
+        this.setupExoplayer()
     }
 
-    private fun initSession() {
-        val activityIntent = this.getActivityIntent()
+    private fun fetchData() = scope.launch {
+        firebaseMusic.fetchMediaData()
+    }
+
+    private fun setupSession() {
+        val pendingIntent = this.getActivityIntent()
         this.mediaSession = MediaSessionCompat(this, TAG).apply {
-            this.setSessionActivity(activityIntent)
+            this.setSessionActivity(pendingIntent)
             this.isActive = true
         }
         this.sessionToken = this.mediaSession.sessionToken
-        this.mediaSessionConnector.setPlayer(exoplayer)
-        this.mediaSessionConnector.setPlaybackPreparer(MusicPlaybackPreparer(firebaseMusic) {
-            this.currentPlayingSong = it
-            this.preparePlayer(firebaseMusic.songs, it, true)
-        })
-        this.mediaSessionConnector.setQueueNavigator(MusicQueueNavigator())
     }
 
     private fun getActivityIntent(): PendingIntent? =
-        this.packageManager?.getLaunchIntentForPackage(packageName)?.let {
-            PendingIntent.getActivity(this, 0, it, PendingIntent.FLAG_IMMUTABLE)
+        this.packageManager?.getLaunchIntentForPackage(packageName)?.let { intent ->
+            PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
         }
 
-    private fun initNotificationManager() {
+    private fun setupConnector() {
+        this.mediaSessionConnector = MediaSessionConnector(mediaSession).apply {
+            this.setPlaybackPreparer(getMusicPlaybackPreparer())
+            this.setQueueNavigator(MusicQueueNavigator())
+            this.setPlayer(exoplayer)
+        }
+    }
+
+    private fun getMusicPlaybackPreparer(): MusicPlaybackPreparer = MusicPlaybackPreparer(
+        this.firebaseMusic
+    ) { song ->
+        this.currentPlayingSong = song
+        this.preparePlayer(
+            this.firebaseMusic.songs,
+            song,
+            true
+        )
+    }
+
+    private fun setupExoplayer() {
+        this.exoplayer.addListener(MusicPlayerEventListener(this))
+        this.musicNotificationManager.showNotification(exoplayer)
+    }
+
+    private fun setupNotificationManager() {
         this.musicNotificationManager = MusicNotificationManager(
             this,
-            mediaSession.sessionToken,
+            this.mediaSession.sessionToken,
             MusicPlayerNotificationListener(this)
         ) {
             currentSongDuration = exoplayer.duration
-        }.apply { showNotification(exoplayer) }
+        }
     }
 
     private fun preparePlayer(
@@ -151,13 +179,10 @@ class MusicService : MediaBrowserServiceCompat() {
                         }
                     } else {
                         this.mediaSession.sendSessionEvent(Constants.ERROR_NETWORK, null)
-                        result.sendResult(null)
+                        result.sendResult(mutableListOf())
                     }
                 }
-
-                if (!resultSent) {
-                    result.detach()
-                }
+                result.detach()
             }
         }
     }

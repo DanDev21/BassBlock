@@ -36,9 +36,11 @@ class FirebaseMusic @Inject constructor(
 
     fun addOnReadyListener(routine: (Boolean) -> Unit): Boolean {
         return if (this.state == State.CREATED || this.state == State.LOADING) {
-            this.onReadyListeners += routine; true
+            this.onReadyListeners += routine
+            true
         } else {
-            routine(this.state == State.LOADED); false
+            routine(this.state == State.LOADED)
+            false
         }
     }
 
