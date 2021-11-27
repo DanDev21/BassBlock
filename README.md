@@ -15,6 +15,14 @@ Firestore for my own data serialization).
 
 // DEMONSTRATION
 
+// main fragment and foreground service
 
 https://user-images.githubusercontent.com/88973174/143719854-b6bf91f7-9e63-4e0d-80bc-c24d8d5dde94.mp4
+
+
+
+
+// song fragment preview
+
+https://user-images.githubusercontent.com/88973174/143719941-4ee3df80-ebdb-4a75-be30-029d170437ec.mp4
 
