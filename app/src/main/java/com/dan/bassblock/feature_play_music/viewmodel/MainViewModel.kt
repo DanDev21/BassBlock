@@ -9,9 +9,9 @@ import com.dan.bassblock.feature_play_music.domain.data.model.Song
 import com.dan.bassblock.feature_play_music.domain.util.Constants
 import com.dan.bassblock.feature_play_music.domain.util.Resource
 import com.dan.bassblock.feature_play_music.exoplayer.MusicServiceConnection
-import com.dan.bassblock.feature_play_music.exoplayer.isPlayEnabled
-import com.dan.bassblock.feature_play_music.exoplayer.isPlaying
-import com.dan.bassblock.feature_play_music.exoplayer.isPrepared
+import com.dan.bassblock.feature_play_music.exoplayer.extension.isPlayEnabled
+import com.dan.bassblock.feature_play_music.exoplayer.extension.isPlaying
+import com.dan.bassblock.feature_play_music.exoplayer.extension.isPrepared
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -50,7 +50,7 @@ class MainViewModel @Inject constructor(
         })
     }
 
-    fun skipToNextSong() {
+    fun skipToNext() {
         this.musicServiceConnection.transportControls.skipToNext()
     }
 

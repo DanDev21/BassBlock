@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".feature_play_music.ui.activity.MainActivity">
@@ -11,11 +12,54 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
 
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph"
+        app:layout_constraintBottom_toTopOf="@+id/layout_current_song"
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph"
         tools:layout="@layout/fragment_home" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_current_song"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/image_view_song"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_neon_musical_note"
+            tools:ignore="ContentDescription" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager_song"
+            android:layout_width="250dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_song"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/image_view_pause_play"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view_pager_song"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_play"
+            tools:ignore="ContentDescription" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

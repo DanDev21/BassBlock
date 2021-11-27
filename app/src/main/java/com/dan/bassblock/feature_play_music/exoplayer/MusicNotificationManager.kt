@@ -45,8 +45,10 @@ class MusicNotificationManager(
         private val mediaController: MediaControllerCompat
     ) : PlayerNotificationManager.MediaDescriptionAdapter {
 
-        override fun getCurrentContentTitle(player: Player): CharSequence =
-            this.mediaController.metadata.description.title.toString()
+        override fun getCurrentContentTitle(player: Player): CharSequence {
+            newSongCallback()
+            return this.mediaController.metadata.description.title.toString()
+        }
 
         override fun createCurrentContentIntent(player: Player): PendingIntent? =
             this.mediaController.sessionActivity

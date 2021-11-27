@@ -8,4 +8,11 @@
         android:id="@+id/homeFragment"
         android:name="com.dan.bassblock.feature_play_music.ui.fragment.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/songFragment"
+        android:name="com.dan.bassblock.feature_play_music.ui.fragment.SongFragment"
+        android:label="SongFragment" />
+
+    <action android:id="@+id/navigate_to_fragment_song"
+        app:destination="@id/songFragment" />
 </navigation>

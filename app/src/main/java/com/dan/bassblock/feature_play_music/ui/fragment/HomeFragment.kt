@@ -40,7 +40,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         this.viewModel = ViewModelProvider(this.requireActivity())[MainViewModel::class.java]
         this.subscribeToObservers()
 
-        this.songAdapter.setOnClickListener(this.viewModel::toggleSong)
+        this.songAdapter.setClickListener(this.viewModel::toggleSong)
     }
 
     private fun initUI() {

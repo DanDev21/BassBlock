@@ -8,4 +8,5 @@
         song
     <string name="title">title</string>
     <string name="artist">artist</string>
+    <string name="duration">00:00</string>
 </resources>

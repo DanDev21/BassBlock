@@ -182,7 +182,9 @@ class MusicService : MediaBrowserServiceCompat() {
                         result.sendResult(mutableListOf())
                     }
                 }
-                result.detach()
+                if (!resultSent) {
+                    result.detach()
+                }
             }
         }
     }

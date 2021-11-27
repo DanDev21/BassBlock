@@ -37,14 +37,14 @@ class FirebaseMusic @Inject constructor(
     fun addOnReadyListener(routine: (Boolean) -> Unit): Boolean {
         return if (this.state == State.CREATED || this.state == State.LOADING) {
             this.onReadyListeners += routine
-            true
+            false
         } else {
             routine(this.state == State.LOADED)
-            false
+            true
         }
     }
 
-    suspend fun fetchMediaData() = withContext(Dispatchers.IO) {
+    suspend fun fetchMediaData() = withContext(Dispatchers.Main) {
         state = State.LOADING
         songs = songDatabase.getSongs().map { song ->
             MediaMetadataCompat.Builder()
