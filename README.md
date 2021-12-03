@@ -1,4 +1,4 @@
-### BassBlock
+# BassBlock
 
 ## Simple Spotify clone. 
 I used Exoplayer API for playing mp3 files (songs) 
@@ -13,16 +13,16 @@ Firestore for my own data serialization).
 6. put the .json file from it inside the project (inside the /app folder)
 7. you are ready to go
 
-### DEMONSTRATION
+## DEMONSTRATION
 
-# main fragment and foreground service
+### main fragment and foreground service
 
 https://user-images.githubusercontent.com/88973174/143719854-b6bf91f7-9e63-4e0d-80bc-c24d8d5dde94.mp4
 
 
 
 
-# song fragment preview
+### song fragment preview
 
 https://user-images.githubusercontent.com/88973174/143719941-4ee3df80-ebdb-4a75-be30-029d170437ec.mp4
 
